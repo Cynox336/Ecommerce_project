@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<h1>Usuario perfil</h1>
+<ul>
+  <li>Nombre : {{user.first_name|capfirst}}</li>
+  <li>Apellido : {{user.last_name|capfirst}}</li>
+  <li>Nombre de Usuario : {{user.username|capfirst}}</li>
+  <li>Fecha creacion: {{user.fecha_creacion}} {{user.created}}</li>
+  <li>Dirección : {{user.domicilio|default:"Unknown"}}</li>
+
+  <!-- Aquí mostramos la imagen de perfil -->
+  <li>Foto de perfil:</li>
+  <li>
+    {% comment %} {% if user.foto_perfil %} {% endcomment %}
+    <img
+      src="{{ user.foto_perfil.url }}"
+      alt="Foto de perfil"
+      style="max-width: 200px; height: auto"
+    />
+    {% comment %} {% else %}
+    <p>No hay foto de perfil disponible.</p>
+    {% endif %} {% endcomment %}
+  </li>
+</ul>
+{% endblock %}

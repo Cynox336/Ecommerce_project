@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<h2>My Social Login Homepage</h2>
+{% if user.is_authenticated %}
+
+<p>Hi {{ user.username }}!</p>
+{% endif %}
+
+<span class="nav-item mt-2">
+  <a
+    href="{% url 'account_logout' %}"
+    type="button"
+    class="btn btn-info btn-lg btn-sm ms-4"
+  >
+    <span class="glyphicon glyphicon-log-out"></span> Log out
+  </a>
+</span>
+{% endblock %}

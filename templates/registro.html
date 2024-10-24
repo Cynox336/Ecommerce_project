@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<h2>Registro</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+
+  <div class="col-sm-6 form-group">
+    <label for="genre" class="mb-2">Genero:</label>
+    <div>
+      <label> <input type="radio" name="genre" value="male" /> Male </label>
+      <label> <input type="radio" name="genre" value="female" /> Female </label>
+      <label>
+        <input type="radio" name="genre" value="female" /> Personalizado
+      </label>
+    </div>
+    {% comment %} {% if form.genre.errors %}
+    <span class="text-danger">{{ form.genre.errors.0 }}</span>
+    {% endif %} {% endcomment %}
+  </div>
+
+  <button type="submit">Registrarse</button>
+</form>
+{% endblock %} {% comment %} {% if form.genre.value = "female" %}checked{% endif
+%} {% if form.genre.value = "male" %}checked{% endif %}{% endcomment %}
