@@ -110,7 +110,6 @@
     background: linear-gradient(to left, #ba2d2d, #5335c9);
 }
 
-
 .text {
     font-size: 13px;
     text-align: center;
@@ -136,31 +135,7 @@
     margin-right: 9px;
 }
 
-.social-container {
-    margin-left: 48px;
-}
-.social-container a {
-    border: 1px solid #DDDDDD;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 5px;
-    height: 40px;
-    width: 40px;
-    text-decoration: none;
-    transition: .5s;
-}
-.social-container a.social.facebook:hover{
-    background-color: rgba(10, 17, 72, 0.789);
-}
-.social-container a.social.google:hover {
-    background-color: rgba(175, 176, 182, 0.789);
-}
-.social-container a.social.github:hover {
-    background-color: rgba(3, 4, 12, 0.789);
-}
-/* .twitter-btn {
+.twitter-btn {
     margin: 15px 0;
 }
 
@@ -184,5 +159,4 @@
 
 .facebook-btn button:hover {
     background-color: rgba(32, 41, 110, 0.789);
-} */
-
+}

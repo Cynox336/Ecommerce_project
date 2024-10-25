@@ -1,33 +1,18 @@
-from msilib.schema import ListView
-from urllib import request
-from django.views.generic import ListView
 from django.shortcuts import redirect, render
-from .forms import RegistroForm,EditarPerfilForm
+from .forms import RegistroForm, EditarPerfilForm
 from .models import Usuario
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
+from django.contrib import messages
 
-
-
-# @login_required
-# def home(request):
-#     return render(request, 'home.html')
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "home.html" 
-# Create your views here.
-# @login_required
-def  usuario_perfil(request):
-    return render(request,'perfil.html')
 
-
-# class UsuarioListView(ListView):
-#     model = Usuario
-#     template_name = 'perfil.html'
-#     context_object_name = 'perfilusuarios'
-
-
+@login_required
+def usuario_perfil(request):
+    return render(request, 'perfil.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -44,11 +29,9 @@ def login_view(request):
     
     return render(request, 'login.html')
 
-
 def logout_view(request):
     logout(request)
     return redirect('login')
-
 
 def registro(request):
     if request.method == "POST":
@@ -56,21 +39,27 @@ def registro(request):
         if form.is_valid():
             user = form.save()
             user.backend = 'django.contrib.auth.backends.ModelBackend'
-            login(request, user)  # Inicia sesión automáticamente después del registro
-            return redirect("home")  # Cambia "home" por la ruta a donde quieras redirigir
+            login(request, user)
+            return redirect("home")
     else:
         form = RegistroForm()
     return render(request, "registro.html", {"form": form})
-
 
 @login_required
 def editar_perfil(request):
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('perfil')  # O la URL a la que quieras redirigir
+            user = form.save(commit=False)
+            if 'foto_perfil' in request.FILES:
+                user.foto_perfil = request.FILES['foto_perfil']
+            user.save()
+            messages.success(request, 'Perfil actualizado correctamente.')
+            return redirect('perfil')
     else:
         form = EditarPerfilForm(instance=request.user)
 
     return render(request, 'editar_perfil.html', {'form': form})
+
+
+

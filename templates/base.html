@@ -10,17 +10,11 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-    />
-    {% load static %} {% comment %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    {% endcomment %}
+    <style></style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'home' %}">Ecommerce Project</a>
+      <a class="navbar-brand" href="/">Ecommerce Project</a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -30,12 +24,7 @@
             <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'perfil' %}">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'editar_perfil' %}"
-              >Editar Perfil</a
-            >
+            <a class="nav-link" href="{% url 'perfil' %}">User Perfil</a>
           </li>
 
           {% comment %}

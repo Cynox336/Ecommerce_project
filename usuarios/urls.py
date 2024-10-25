@@ -1,5 +1,5 @@
-from django.urls import path, include
-from .views import registro, login_view, HomeView, logout_view, usuario_perfil, editar_perfil
+from django.urls import path
+from .views import registro, login_view, HomeView, logout_view, usuario_perfil,editar_perfil
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -9,15 +9,12 @@ urlpatterns = [
     path('perfil/', usuario_perfil, name='perfil'),
     path('registro/', registro, name='registro'),
 
-    # URLs for password recovery
+    # URLs para la recuperación de contraseña
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     
-    # URL for editing profile
+     # URLs para editar el perfil
     path('editar_perfil/', editar_perfil, name='editar_perfil'),
-
-    path("accounts/", include("allauth.urls")),
 ]
-

@@ -22,10 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('usuarios.urls')),
-    path('social/', include('social_django.urls', namespace='social')),
-    # path("", include("googleauthentication.urls")),
-    
-
+    path('oauth/', include('social_django.urls', namespace='social')),  # <-- here
 ]
 
 if settings.DEBUG:

@@ -1,8 +1,5 @@
 {% extends "base.html" %} {% block content %} {% load static %}
 
-{% load socialaccount %}
-{% providers_media_js %}
-
 <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 <script src="{% static 'js/main.js'%}"></script>
 
@@ -39,29 +36,26 @@
             </div>
 
             <div class="submit-button">
-              <input type="submit" value="Login" />
+              <input type="submit" value="Continue" />
             </div>
           </div>
-        <a class="btn btn-info mt-3 mb-3" href="{% url 'password_reset'%}"
-          ><span class="ms-5">Reset Password</span></a
-        >
-        <div class="text">Or connect with Social Media</div>
-        <div class="social-container">
-          <a  href="{% provider_login_url "facebook"  %}" class="social facebook">
-            
-          <i class="fab fa-facebook-f"></i
-          ></a>
-          <a href="{% provider_login_url 'google' %}?next=/" class="social google"><i class="fab fa-google-plus-g"></i></a>
-          <a href="{% provider_login_url 'github' %}" class="social github"><i class="fab fa-github"></i></a>
-        </div>
-        
-       
+        </form>
+        <a class="btn btn-info mt-3" href="{% url 'password_reset'%}"
+        >Reset Password</a
+      >
+        <div class="text">or connect with Social Media</div>
+
+        <div class="facebook-btn">
+          <button class="btn">
+            <i class="bx bxl-facebook"></i>
+            <a href="{% url 'social:begin' 'facebook' %}"
+              >Login with Facebook</a
+            >
+          </button>
           <a class="btn btn-success mt-3" href="{% url 'registro'%}"
-            ><span class="ms-4">Registro nueva cuenta</span></a
+            >Register</a
           >
         </div>
-        </form>
-
         {% if error %}
         <p style="color: red">{{ error }}</p>
         {% endif %}

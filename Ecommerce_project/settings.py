@@ -28,11 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-
+AUTH_USER_MODEL = 'usuarios.Usuario'
 # Application definition
+
 INSTALLED_APPS = [
-    # Django core apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,74 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'usuarios',
-    # Required by allauth
-    'django.contrib.sites',
-
-    # Allauth apps
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'social_django',# <-- Here
     
-    # Providers
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.github',
+    
 ]
-
-
-SITE_ID = 1
-LOGIN_REDIRECT_URL = 'home'
-
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     },
-#     'facebook': {
-#         'METHOD': 'oauth2',
-#         'SCOPE': ['email', 'public_profile'],
-#         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-#         'FIELDS': [
-#             'id',
-#             'email',
-#             'name',
-#             'first_name',
-#             'last_name',
-#             'verified',
-#             'locale',
-#             'timezone',
-#             'link',
-#             'gender',
-#             'updated_time',
-#         ],
-#         'EXCHANGE_TOKEN': True,
-#         'LOCALE_FUNC': lambda request: 'en_US',
-#         'VERIFIED_EMAIL': False,
-#         'VERSION': 'v13.0',
-#     },
-#     'github': {
-#         'SCOPE': [
-#             'user',
-#             'repo',
-#             'read:org',
-#         ],
-#     }
-# }
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-
-SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
-SOCIALACCOUNT_EMAIL_REQUIRED = False
-SOCIALACCOUNT_AUTO_SIGNUP = True
-
-# SOCIALACCOUNT_ADAPTER = "usuarios.adapters.CustomSocialAccountAdapter"
 
 
 
@@ -119,37 +54,46 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # <-- Here
+
 ]
-
-
 
 ROOT_URLCONF = 'Ecommerce_project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR ,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # Required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                
-                # Add only social_django context processors if using social auth
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                'django.contrib.messages.context_processors.messages', 
+                'social_django.context_processors.backends',# <-- Here
+                'social_django.context_processors.login_redirect',# <-- Here
             ],
         },
     },
 ]
 
 
+# AUTHENTICATION_BACKENDS = (
+#     'social_core.backends.facebook.FacebookOAuth2',
+#     'social_core.backends.twitter.TwitterOAuth',
+#     'social_core.backends.github.GithubOAuth2',
 
-
+#     'django.contrib.auth.backends.ModelBackend',
+# )
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',  # Facebook backend
+    'social_core.backends.google.GoogleOAuth2',  # Example backend for Google
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'Ecommerce_project.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -214,15 +158,15 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# media  
+
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '529079673245126'  # <-- Here
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b72e0f63a2969abf65f47d07f728670a' # <-- Here
+SOCIAL_AUTH_LOGIN_REDIRECTS = {'facebook': 'home'}  # Change 'home' to your actual view name
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-
-
-# settings.py
-LOGIN_URL = "/login/"
-
 
 
